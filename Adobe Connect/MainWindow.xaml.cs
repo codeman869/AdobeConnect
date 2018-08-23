@@ -23,6 +23,23 @@ namespace Adobe_Connect
         public MainWindow()
         {
             InitializeComponent();
+
+
+           // Adobe_Connect.Services.AdobeConnectService.Login();
+
+
+        }
+
+        private void LogIn_Click(object sender, RoutedEventArgs e)
+        {
+            Login loginwindow = new Login();
+
+            loginwindow.Show();
+        }
+
+        private void GetMeetingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            Services.AdobeConnectService.GetMeetings();
         }
     }
 }
