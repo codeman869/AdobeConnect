@@ -11,6 +11,7 @@ namespace Adobe_Connect.Services
     class AdobeConnectService
     {
         static HttpClient client;
+        const string path = "/api/xml?";
 
         static AdobeConnectService()
         {
@@ -31,7 +32,7 @@ namespace Adobe_Connect.Services
 
 
 
-            HttpResponseMessage response = await client.GetAsync("/api/xml?" + query);
+            HttpResponseMessage response = await client.GetAsync(path + query);
 
             if (!response.IsSuccessStatusCode) return false;
 
@@ -70,7 +71,7 @@ namespace Adobe_Connect.Services
 
             }).ReadAsStringAsync().Result;
 
-            HttpResponseMessage response = await client.GetAsync("/api/xml?" + query);
+            HttpResponseMessage response = await client.GetAsync(path + query);
 
             if (!response.IsSuccessStatusCode) return null;
 
