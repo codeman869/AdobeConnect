@@ -1,14 +1,19 @@
-﻿<Window x:Class="Adobe_Connect.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Adobe_Connect"
+        xmlns:Models="clr-namespace:Adobe_Connect.Models" x:Class="Adobe_Connect.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="meetingViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Meeting}, CreateList=True}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource meetingViewSource}">
         <Button x:Name="LogIn" Content="Log In" HorizontalAlignment="Left" Margin="116,101,0,0" VerticalAlignment="Top" Width="75" Click="LogIn_Click"/>
         <Button x:Name="GetMeetingsButton" Content="Get Meetings" HorizontalAlignment="Left" Margin="116,171,0,0" VerticalAlignment="Top" Width="75" Click="GetMeetingsButton_Click"/>
+        <DataGrid x:Name="MeetingGrid" Margin="212,10,10,10" ItemsSource="{Binding}"/>
 
     </Grid>
 </Window>

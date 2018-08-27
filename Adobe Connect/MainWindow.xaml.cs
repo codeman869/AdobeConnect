@@ -20,13 +20,13 @@ namespace Adobe_Connect
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private List<Models.Meeting> meetings;
+        
+
         public MainWindow()
         {
             InitializeComponent();
-
-
-           // Adobe_Connect.Services.AdobeConnectService.Login();
-
 
         }
 
@@ -37,9 +37,22 @@ namespace Adobe_Connect
             loginwindow.Show();
         }
 
-        private void GetMeetingsButton_Click(object sender, RoutedEventArgs e)
+        private async void GetMeetingsButton_Click(object sender, RoutedEventArgs e)
         {
-            Services.AdobeConnectService.GetMeetings();
+
+            System.Windows.Data.CollectionViewSource meetingViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("meetingViewSource")));
+            meetings = await Services.AdobeConnectService.GetMeetings();
+
+            meetingViewSource.Source = meetings;
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            //System.Windows.Data.CollectionViewSource meetingViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("meetingViewSource")));
+            //System.Windows.Data.CollectionViewSource meetingViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("meetingViewSource")));
+            // Load data by setting the CollectionViewSource.Source property:
+            //meetingViewSource.Source = meetings;
         }
     }
 }
