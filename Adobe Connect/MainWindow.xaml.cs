@@ -33,6 +33,8 @@ namespace Adobe_Connect
 
             List<Meeting> tempList = await AdobeConnectService.GetMeetings();
 
+            meetings.Clear();
+
             foreach(Meeting meeting in tempList)
             {
                 meetings.Add(meeting);
