@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Adobe_Connect.Services;
 
 namespace Adobe_Connect.Models
 {
@@ -57,6 +58,12 @@ namespace Adobe_Connect.Models
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            UpdateServer(this);
+        }
+
+        private void UpdateServer(Meeting meeting)
+        {
+            AdobeConnectService.UpdateMeeting(meeting);
         }
     }
 

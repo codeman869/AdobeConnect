@@ -96,7 +96,7 @@ namespace Adobe_Connect.Services
 
         }
 
-        static async Task<bool> UpdateMeeting(Meeting meeting)
+        public static async Task<bool> UpdateMeeting(Meeting meeting)
         {
 
             string meetingtype = meeting.Type == Meeting.MeetingTypes.meeting ? "meeting" : "virtual-classroom";
