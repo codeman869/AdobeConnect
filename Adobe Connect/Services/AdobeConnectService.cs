@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Xml;
+using Adobe_Connect.Models;
 
 namespace Adobe_Connect.Services
 {
@@ -60,9 +61,9 @@ namespace Adobe_Connect.Services
 
         }
 
-        public static async Task<List<Models.Meeting>> GetMeetings()
+        public static async Task<List<Meeting>> GetMeetings()
         {
-            List <Models.Meeting> meetings = new List<Models.Meeting>();
+            List <Meeting> meetings = new List<Meeting>();
 
             var query = new FormUrlEncodedContent(new Dictionary<string, string>() {
 
@@ -93,9 +94,8 @@ namespace Adobe_Connect.Services
 
         }
 
-        static Models.Meeting SerializeMeeting(XmlNode meetingInfo)
+        static Meeting SerializeMeeting(XmlNode meetingInfo)
         {
-            //Models.Meeting meeting = new Models.Meeting();
 
             string scoId = meetingInfo.Attributes["sco-id"].Value;
             string type = meetingInfo.Attributes["icon"].Value;
@@ -110,7 +110,7 @@ namespace Adobe_Connect.Services
             DateTime beginDateTime = DateTime.Parse(begin);
             DateTime endDateTime = DateTime.Parse(end);
 
-            return new Models.Meeting(name, description, scoId, type, url, beginDateTime, endDateTime);
+            return new Meeting(name, description, scoId, type, url, beginDateTime, endDateTime);
         }
     }
 }
