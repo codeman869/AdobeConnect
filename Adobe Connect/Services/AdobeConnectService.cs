@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Xml;
@@ -38,24 +36,12 @@ namespace Adobe_Connect.Services
             if (!response.IsSuccessStatusCode) return false;
 
 
-            Console.WriteLine("Logged In!");
-
-
             var responseString = await response.Content.ReadAsStringAsync();
 
-            Console.WriteLine(responseString);
+            var responseStatus = CheckResponseStatus(responseString);
 
 
-            XmlDocument xdoc = new XmlDocument();
-            xdoc.LoadXml(responseString);
-
-            string loggedIn = xdoc.SelectSingleNode("results/status").Attributes["code"].Value;
-
-            Console.WriteLine(loggedIn);
-
-
-
-            if (loggedIn == "ok") return true;
+            if (responseStatus) return true;
 
             return false;
 
@@ -113,17 +99,16 @@ namespace Adobe_Connect.Services
 
             if (!response.IsSuccessStatusCode) return false;
 
-            XmlDocument xdoc = new XmlDocument();
+            
 
             string responseString = await response.Content.ReadAsStringAsync();
 
-            xdoc.LoadXml(responseString);
 
-            string success = xdoc.SelectSingleNode("results/status").Attributes["code"].Value;
+            var responseStatus = CheckResponseStatus(responseString);
 
-            Console.WriteLine($"Updated Meeting Status: {success}");
+            
 
-            if (success == "ok") return true;
+            if (responseStatus) return true;
 
             return false;
         }
@@ -145,6 +130,18 @@ namespace Adobe_Connect.Services
             DateTime endDateTime = DateTime.Parse(end);
 
             return new Meeting(name, description, scoId, type, url, beginDateTime, endDateTime);
+        }
+
+        static bool CheckResponseStatus(string response)
+        {
+            XmlDocument xdoc = new XmlDocument();
+
+            xdoc.LoadXml(response);
+            string success = xdoc.SelectSingleNode("results/status").Attributes["code"].Value;
+
+            if (success == "ok") return true;
+
+            return false;
         }
     }
 }
