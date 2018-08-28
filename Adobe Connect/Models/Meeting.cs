@@ -6,7 +6,13 @@ namespace Adobe_Connect.Models
 {
     class Meeting : INotifyPropertyChanged
     {
-        private string _type;
+        public enum MeetingTypes
+        {
+            meeting,
+            virtual_classroom
+        };
+
+        private MeetingTypes _type;
         public string Name { get; }
         public string Description { get; }
         public string ScoId { get; }
@@ -15,7 +21,9 @@ namespace Adobe_Connect.Models
         public DateTime End { get; }
 
 
-        public string Type { get { return _type; } set
+        public MeetingTypes Type {
+            get { return _type; }
+            set
             {
                 if (_type == value)
                     return;
@@ -29,11 +37,19 @@ namespace Adobe_Connect.Models
             Name = name;
             Description = description;
             ScoId = scoID;
-            _type = type;
+            
             URL = url;
             Start = begin;
             End = end;
             
+            if(type == "meeting")
+            {
+                _type = MeetingTypes.meeting;
+            } else
+            {
+                _type = MeetingTypes.virtual_classroom;
+            }
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
