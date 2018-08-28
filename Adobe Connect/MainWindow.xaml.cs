@@ -3,13 +3,14 @@ using System.Windows;
 using Adobe_Connect.Models;
 using Adobe_Connect.Services;
 using Adobe_Connect.Collections;
+using MahApps.Metro.Controls;
 
 namespace Adobe_Connect
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
 
         
