@@ -69,6 +69,8 @@ namespace Adobe_Connect.Services
 
                 {"action", "sco-contents" },
                 {"sco-id", "2668004808"  },
+                
+
 
             }).ReadAsStringAsync().Result;
 
@@ -92,6 +94,38 @@ namespace Adobe_Connect.Services
 
             return meetings;
 
+        }
+
+        static async Task<bool> UpdateMeeting(Meeting meeting)
+        {
+
+            string meetingtype = meeting.Type == Meeting.MeetingTypes.meeting ? "meeting" : "virtual-classroom";
+
+            var query = new FormUrlEncodedContent(new Dictionary<string, string>()
+            {
+                {"action", "sco-update"},
+                {"sco-id", meeting.ScoId },
+                {"icon", meetingtype },
+                {"source-sco-id", "2654344692" }
+            }).ReadAsStringAsync().Result;
+
+            HttpResponseMessage response = await client.GetAsync(path + query);
+
+            if (!response.IsSuccessStatusCode) return false;
+
+            XmlDocument xdoc = new XmlDocument();
+
+            string responseString = await response.Content.ReadAsStringAsync();
+
+            xdoc.LoadXml(responseString);
+
+            string success = xdoc.SelectSingleNode("results/status").Attributes["code"].Value;
+
+            Console.WriteLine($"Updated Meeting Status: {success}");
+
+            if (success == "ok") return true;
+
+            return false;
         }
 
         static Meeting SerializeMeeting(XmlNode meetingInfo)
