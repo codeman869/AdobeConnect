@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 using Adobe_Connect.Models;
 using Adobe_Connect.Services;
 using Adobe_Connect.Collections;
@@ -62,6 +64,20 @@ namespace Adobe_Connect
             meetings = new MeetingList();
 
             meetingViewSource.Source = meetings;
+        }
+
+
+        private void MeetingGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+           
+
+            if (sender != null && e != null)
+            {
+                int selectedIndex = ((DataGrid)sender).SelectedIndex;
+
+                meetings[selectedIndex].Type = ((Meeting)e.Row.DataContext).Type == Meeting.MeetingTypes.meeting ? Meeting.MeetingTypes.virtual_classroom : Meeting.MeetingTypes.meeting;
+
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Xml;
+using System.Collections.ObjectModel;
 using Adobe_Connect.Models;
 
 namespace Adobe_Connect.Services
@@ -49,7 +50,7 @@ namespace Adobe_Connect.Services
 
         public static async Task<List<Meeting>> GetMeetings()
         {
-            List <Meeting> meetings = new List<Meeting>();
+            List<Meeting> meetings = new List<Meeting>();
 
             var query = new FormUrlEncodedContent(new Dictionary<string, string>() {
 
@@ -74,8 +75,13 @@ namespace Adobe_Connect.Services
 
             foreach(XmlNode node in nodes)
             {
-                meetings.Add(SerializeMeeting(node));
+                var meeting = SerializeMeeting(node);
 
+                if (meeting != null )
+                {
+                    meetings.Add(meeting);
+                }
+                
             }
 
             return meetings;
@@ -115,19 +121,32 @@ namespace Adobe_Connect.Services
 
         static Meeting SerializeMeeting(XmlNode meetingInfo)
         {
-
-            string scoId = meetingInfo.Attributes["sco-id"].Value;
-            string type = meetingInfo.Attributes["icon"].Value;
-
-            string name = meetingInfo.SelectSingleNode("name").InnerText;
-            string description = meetingInfo.SelectSingleNode("description").InnerText;
-            string url = meetingInfo.SelectSingleNode("url-path").InnerText;
-
             string begin = meetingInfo.SelectSingleNode("date-begin").InnerText;
             string end = meetingInfo.SelectSingleNode("date-end").InnerText;
 
             DateTime beginDateTime = DateTime.Parse(begin);
             DateTime endDateTime = DateTime.Parse(end);
+
+            var now = DateTime.Now;
+            
+            if (endDateTime < now)
+            {
+                return null;
+            }
+
+
+            string scoId = meetingInfo.Attributes["sco-id"].Value;
+            string type = meetingInfo.Attributes["icon"].Value;
+
+            string name = meetingInfo.SelectSingleNode("name").InnerText;
+            string description = "";
+
+            if (meetingInfo.SelectSingleNode("description") != null)
+            {
+                description = meetingInfo.SelectSingleNode("description").InnerText;
+            }
+            
+            string url = meetingInfo.SelectSingleNode("url-path").InnerText;
 
             return new Meeting(name, description, scoId, type, url, beginDateTime, endDateTime);
         }
