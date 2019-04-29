@@ -10,7 +10,7 @@
     
     <Grid HorizontalAlignment="Left" Width="259">
         <TextBox Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Username" Name="Username" Margin="10,65,15,0" TextWrapping="Wrap" Height="26" VerticalAlignment="Top"/>
-        <PasswordBox Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Password" Name="Password" Margin="10,109,15,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="23"/>
+        <PasswordBox Controls:TextBoxHelper.ClearTextButton="True" KeyDown="Password_KeyDown" Controls:TextBoxHelper.Watermark="Password" Name="Password" Margin="10,109,15,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="23"/>
         <Button x:Name="LogIn" Content="Login" Margin="10,219,15,0" Click="LogIn_Click" Height="20" VerticalAlignment="Top"/>
         <Label x:Name="LoginStatus" Content="" Margin="10,279,15,0" VerticalAlignment="Top" RenderTransformOrigin="-0.643,-0.768" Height="40" HorizontalContentAlignment="Center" FontSize="22"/>
 

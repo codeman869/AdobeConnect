@@ -52,6 +52,12 @@ namespace Adobe_Connect
 
         }
 
-        
+        private void Password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                LogIn_Click(sender, e);
+            }
+        }
     }
 }
