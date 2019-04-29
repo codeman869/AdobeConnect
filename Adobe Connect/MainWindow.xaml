@@ -7,7 +7,7 @@
         xmlns:Models="clr-namespace:Adobe_Connect.Models" x:Class="Adobe_Connect.MainWindow"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="Adobe Connect Meetings" Height="450" Width="800" Loaded="Window_Loaded">
     <Window.Resources>
         <CollectionViewSource x:Key="meetingViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Meeting}, CreateList=True}"/>
     </Window.Resources>

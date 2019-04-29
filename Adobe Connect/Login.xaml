@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Adobe_Connect"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="Login" Height="378.571" Width="278.571" ResizeMode="NoResize">
+        Title="Adobe Connect Login" Height="378.571" Width="278.571" ResizeMode="NoResize">
     
     <Grid HorizontalAlignment="Left" Width="259">
         <TextBox Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Username" Name="Username" Margin="10,65,15,0" TextWrapping="Wrap" Height="26" VerticalAlignment="Top"/>
