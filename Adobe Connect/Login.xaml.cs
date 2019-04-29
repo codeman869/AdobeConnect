@@ -42,9 +42,12 @@ namespace Adobe_Connect
 
             LoggedIn = await Services.AdobeConnectService.Login(username, password);
 
+            ((MainWindow)Application.Current.MainWindow).setLoggedIn(LoggedIn);
+
             if (LoggedIn)
             {
                 LoginStatus.Content = "Logged In!";
+                
             } else
             {
                 LoginStatus.Content = "Error Logging in!";

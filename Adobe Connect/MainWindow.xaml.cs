@@ -15,11 +15,17 @@ namespace Adobe_Connect
 
         
         private MeetingList meetings;
+        private bool loggedIn = false;
 
         public MainWindow()
         {
             InitializeComponent();
 
+        }
+
+        public void setLoggedIn(bool status)
+        {
+            loggedIn = status;
         }
 
         private void LogIn_Click(object sender, RoutedEventArgs e)
@@ -31,6 +37,11 @@ namespace Adobe_Connect
 
         private async void GetMeetingsButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!loggedIn)
+            {
+                MessageBox.Show("You must log in before interacting with the Adobe Connect Services", "Log in Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             List<Meeting> tempList = await AdobeConnectService.GetMeetings();
 
